@@ -22,7 +22,12 @@ Once the Box Least Squares (BLS) periodogram isolates the periodic transit inter
 
 $$T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}$$
 
-*Where $G$ represents the Gravitational Constant ($6.674 \times 10^{-11}$ m³ kg⁻¹ s⁻²), and $M_s$ represents the cataloged mass of the target star.*
+*Where $G$ represents the Gravitational Constant:
+
+$$G = 6.674 \times 10^{-11} \text{ m}^3 \text{ kg}^{-1} \text{ s}^{-2}$$
+
+And $M_s$ represents the cataloged mass of the target star.
+*
 
 ---
 
