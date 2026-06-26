@@ -8,21 +8,21 @@ An open-source, automated data processing pipeline built in Python to extract ra
 
 This project implements the **Transit Photometry Method** to study exoplanetary properties based on the geometric configurations of stellar eclipses.
 
-### 1. Geometric Extraction of Planetary Radius (\(R_p\))
-When an exoplanet transits its host star, the structural flux reduction—or transit depth (\(\Delta F\))—is mathematically defined as the ratio of the cross-sectional area of the planet's disk to that of the star:
+### 1. Geometric Extraction of Planetary Radius ($R_p$)
+When an exoplanet transits its host star, the structural flux reduction—or transit depth ($\Delta F$)—is mathematically defined as the ratio of the cross-sectional area of the planet's disk to that of the star:
 
-\[\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2\]
+$$\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2$$
 
-By isolating the minimum normalized flux value within the folded time-series array, the engine extracts the true physical size of the world relative to Earth (\(R_{\oplus}\)):
+By isolating the minimum normalized flux value within the folded time-series array, the engine extracts the true physical size of the world relative to Earth ($R_{\oplus}$):
 
-\[R_p = R_s \sqrt{\Delta F}\]
+$$R_p = R_s \sqrt{\Delta F}$$
 
-### 2. Solving for Semi-Major Axis (\(a\)) via Kepler's Third Law
-Once the Box Least Squares (BLS) periodogram isolates the periodic transit interval (\(T\)), the planet's average orbital distance (semi-major axis) is resolved by matching centrifugal and gravitational parameters:
+### 2. Solving for Semi-Major Axis ($a$) via Kepler's Third Law
+Once the Box Least Squares (BLS) periodogram isolates the periodic transit interval ($T$), the planet's average orbital distance (semi-major axis) is resolved by matching centrifugal and gravitational parameters:
 
-\[T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}\]
+$$T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}$$
 
-*Where \(G\) represents the Gravitational Constant (\(6.674 \times 10^{-11} \text{ m}^3\text{kg}^{-1}\text{s}^{-2}\)), and \(M_s\) represents the cataloged mass of the target star.*
+*Where $G$ represents the Gravitational Constant ($6.674 \times 10^{-11} \text{ m}^3\text{kg}^{-1}\text{s}^{-2}$), and $M_s$ represents the cataloged mass of the target star.*
 
 ---
 
