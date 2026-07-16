@@ -8,7 +8,7 @@ I built this Python pipeline to automate the process of finding and measuring pl
 
 The core script uses the **Transit Photometry Method**. By looking at how much a star's light drops when a planet passes in front of it, we can reverse-engineer the planet's characteristics.
 
-### 1. Figuring out Planet Size (\(R_p\))
+### 1. Figuring out Planet Size ($R_p$)
 When a planet transits, the dip in light—the transit depth ($\Delta F$)—tells us the size ratio between the planet's disk and the star's disk:
 
 $$\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2$$
@@ -17,7 +17,7 @@ The engine extracts the minimum flux from the cleaned data arrays to calculate t
 
 $$R_p = R_s \sqrt{\Delta F}$$
 
-### 2. Mapping the Orbit (a) with Kepler's Third Law
+### 2. Mapping the Orbit ($a$) with Kepler's Third Law
 After running a Box Least Squares (BLS) periodogram to find how many days the planet takes to orbit its star (($T$), the engine balances gravitational and centrifugal forces to calculate its average orbital distance (semi-major axis):
 
 $$T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}$$
