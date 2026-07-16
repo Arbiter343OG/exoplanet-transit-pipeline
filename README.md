@@ -9,24 +9,24 @@ I built this Python pipeline to automate the process of finding and measuring pl
 The core script uses the **Transit Photometry Method**. By looking at how much a star's light drops when a planet passes in front of it, we can reverse-engineer the planet's characteristics.
 
 ### 1. Figuring out Planet Size (\(R_p\))
-When a planet transits, the dip in light—the transit depth (Δ F)—tells us the size ratio between the planet's disk and the star's disk:
+When a planet transits, the dip in light—the transit depth ($\Delta F$)—tells us the size ratio between the planet's disk and the star's disk:
 
-\[\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2\]
+$$\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2$$
 
-The engine extracts the minimum flux from the cleaned data arrays to calculate the planet's actual radius relative to Earth (\(R_{\oplus}\)):
+The engine extracts the minimum flux from the cleaned data arrays to calculate the planet's actual radius relative to Earth ($R_{\oplus}$):
 
-\[R_p = R_s \sqrt{\Delta F}\]
+$$R_p = R_s \sqrt{\Delta F}$$
 
 ### 2. Mapping the Orbit (a) with Kepler's Third Law
-After running a Box Least Squares (BLS) periodogram to find how many days the planet takes to orbit its star (T), the engine balances gravitational and centrifugal forces to calculate its average orbital distance (semi-major axis):
+After running a Box Least Squares (BLS) periodogram to find how many days the planet takes to orbit its star (($T$), the engine balances gravitational and centrifugal forces to calculate its average orbital distance (semi-major axis):
 
-\[T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}\]
+$$T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}$$
 
-Where G is the Gravitational Constant:
+Where $G$ is the Gravitational Constant:
 
-\[G = 6.674 \times 10^{-11} \text{ m}^3 \text{ kg}^{-1} \text{ s}^{-2}\]
+$$G = 6.674 \times 10^{-11} \text{ m}^3 \text{ kg}^{-1} \text{ s}^{-2}$$
 
-And \(M_s\) is the recorded mass of the target star.
+And $M_s$  is the recorded mass of the target star.
 
 ---
 
@@ -141,4 +141,3 @@ python systems/kepler10.py
 
 *Note: The engine uses Matplotlib’s headless `Agg` backend. This ensures the scripts run smoothly in terminal-only environments without trying to open popup windows, saving the final phase-folded light curves directly as clean image files.*
 
-*Note: The engine leverages a headless `Agg` backend interface configuration within Matplotlib to avoid runtime window processing conflicts, directly exporting phase-folded signal profiles as high-fidelity diagnostic `.png` assets locally.*
