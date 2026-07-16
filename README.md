@@ -1,46 +1,45 @@
-# Multi-Target Computational Astrophysics Pipeline: Exoplanet Transit Analysis
+# 🪐 Hunting Exoplanets: Automated Transit Analysis Pipeline
 
-An open-source, automated data processing pipeline built in Python to extract raw stellar photometry data from NASA space telescope archives, isolate subtle planetary signatures via signal processing algorithms, and solve Newtonian/Keplerian mechanics equations to calculate key planetary physical and orbital metrics.
-
----
-
-## 🌌 Core Scientific Methodology & Physics Engine
-
-This project implements the **Transit Photometry Method** to study exoplanetary properties based on the geometric configurations of stellar eclipses.
-
-### 1. Geometric Extraction of Planetary Radius ($R_p$)
-When an exoplanet transits its host star, the structural flux reduction—or transit depth ($\Delta F$)—is mathematically defined as the ratio of the cross-sectional area of the planet's disk to that of the star:
-
-$$\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2$$
-
-By isolating the minimum normalized flux value within the folded time-series array, the engine extracts the true physical size of the world relative to Earth ($R_{\oplus}$):
-
-$$R_p = R_s \sqrt{\Delta F}$$
-
-### 2. Solving for Semi-Major Axis ($a$) via Kepler's Third Law
-Once the Box Least Squares (BLS) periodogram isolates the periodic transit interval ($T$), the planet's average orbital distance (semi-major axis) is resolved by matching centrifugal and gravitational parameters:
-
-$$T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}$$
-
-Where $G$ represents the Gravitational Constant:
-
-$$G = 6.674 \times 10^{-11} \text{ m}^3 \text{ kg}^{-1} \text{ s}^{-2}$$
-
-And $M_s$ represents the cataloged mass of the target star.
-
+I built this Python pipeline to automate the process of finding and measuring planets outside our solar system. The engine pulls raw stellar light curves directly from NASA space telescope archives, cleans up the signal noise, and solves classical physics equations to calculate an exoplanet's physical size and orbital distance.
 
 ---
 
-## 🛠️ Software Architecture & Project Topology
+## 🌌 How the Physics Engine Works
 
-The codebase transitions away from static notebooks into a scalable, production-style architecture. A centralized, parametrizable processing module is imported by independent system wrappers to cleanly segregate target profiles.
+The core script uses the **Transit Photometry Method**. By looking at how much a star's light drops when a planet passes in front of it, we can reverse-engineer the planet's characteristics.
+
+### 1. Figuring out Planet Size (\(R_p\))
+When a planet transits, the dip in light—the transit depth (Δ F)—tells us the size ratio between the planet's disk and the star's disk:
+
+\[\Delta F = \frac{F_{\text{unobscured}} - F_{\text{transit}}}{F_{\text{unobscured}}} = \left(\frac{R_p}{R_s}\right)^2\]
+
+The engine extracts the minimum flux from the cleaned data arrays to calculate the planet's actual radius relative to Earth (\(R_{\oplus}\)):
+
+\[R_p = R_s \sqrt{\Delta F}\]
+
+### 2. Mapping the Orbit (a) with Kepler's Third Law
+After running a Box Least Squares (BLS) periodogram to find how many days the planet takes to orbit its star (T), the engine balances gravitational and centrifugal forces to calculate its average orbital distance (semi-major axis):
+
+\[T^2 = \frac{4\pi^2}{G M_s} a^3 \implies a = \left(\frac{G M_s T^2}{4\pi^2}\right)^{1/3}\]
+
+Where G is the Gravitational Constant:
+
+\[G = 6.674 \times 10^{-11} \text{ m}^3 \text{ kg}^{-1} \text{ s}^{-2}\]
+
+And \(M_s\) is the recorded mass of the target star.
+
+---
+
+## 🛠️ Repository Blueprint
+
+I moved this code away from messy Jupyter Notebooks and structured it into a clean, reusable module. The data processing core lives in `exoplanet_engine.py`, and individual planetary systems are separated into their own target profiles.
 
 ```text
 physics_passion_project/
 │
-├── exoplanet_engine.py      # Core framework: Downloads NASA flux files, executes BLS models, runs physics equations
-├── .gitignore               # Excludes virtual environments and raw image artifacts from repository pollution
-└── systems/                 # Target-specific research scripts wrapping custom stellar data
+├── exoplanet_engine.py      # The engine: Downloads NASA data, runs BLS models, and solves the physics
+├── .gitignore               # Keeps out local virtual environments and raw data artifacts
+└── systems/                 # Target scripts that pass specific stellar metrics to the engine
     ├── kepler1.py           # Discovers Kepler-1b: TrES-2b Ultra-Dark Albedo World (~13.1 R_earth)
     ├── kepler2.py           # Discovers Kepler-2b: Highly irradiated, hot Jovian planet (~16.2 R_earth)
     ├── kepler3.py           # Discovers Kepler-3b: Classic Jovian gas giant (~12.3 R_earth)
@@ -71,8 +70,6 @@ physics_passion_project/
     ├── kepler32.py          # Discovers Kepler-32b: M-Dwarf compact mini-system world (~2.2 R_earth)
     ├── kepler33.py          # Discovers Kepler-33b: Highly populated star system survey (~1.7 R_earth)
     └── kepler45.py          # Discovers Kepler-45b: An exoplanet transiting a small M-dwarf star
-w
-
 ```
 
 ---
@@ -114,32 +111,34 @@ Executing the modular script catalog returns a highly diverse exoplanetary demog
 | **Kepler-33b** | 1.820 | 1.290 | 5.6674 | ~1.74 | 0.0654 | Highly Populated Star System Survey |
 | **Kepler-45b** | 0.550 | 0.590 | 2.4552 | ~4.21 | 0.0271 | M-Dwarf Transiting Jovian World |
 
-### Composite Exoplanetary Population Survey Map
-Below is the publication-grade population demographic map compiled automatically across all 30 target script calculations, contrasting size distributions relative to orbital tracking distances:
+### 📊 Visualizing the Dataset
+Every time you run the pipeline across the 30 target scripts, it updates this population map. It plots the calculated planet sizes against their orbital distances so you can easily spot trends (like hot Jupiters vs. rocky worlds):
 
 ![Population Survey Map](exoplanet_population_survey.png)
 
+---
 
+## 🚀 How to Run It
 
-## 🚀 Execution Instructions
-
-### Local Environment Setup
-To clone this project and build the research dependencies inside an isolated virtual environment, execute the following commands in your shell:
+### 1. Set Up Your Environment
+Make sure you clone the repo and grab the necessary astronomy and math packages. Run these commands in your terminal:
 
 ```bash
 # Clone the repository
 git clone https://github.com
 cd exoplanet-transit-pipeline
 
-# Install specialized astrophysical analysis and scientific computing libraries
+# Install astrophysics and scientific computing libraries
 pip install lightkurve astropy matplotlib numpy
 ```
 
-### Running System Discovery Analysis
-To independently query NASA's servers for raw stellar records, process light-curve algorithms, and evaluate planetary characteristics for any target system, invoke its script wrapper:
+### 2. Run a Discovery Script
+To ping NASA's data servers, download raw stellar records, and calculate a planet's properties, just run any target script inside the `systems/` directory. For example, to inspect the rocky Super-Earth Kepler-10b:
 
 ```bash
 python systems/kepler10.py
 ```
+
+*Note: The engine uses Matplotlib’s headless `Agg` backend. This ensures the scripts run smoothly in terminal-only environments without trying to open popup windows, saving the final phase-folded light curves directly as clean image files.*
 
 *Note: The engine leverages a headless `Agg` backend interface configuration within Matplotlib to avoid runtime window processing conflicts, directly exporting phase-folded signal profiles as high-fidelity diagnostic `.png` assets locally.*
