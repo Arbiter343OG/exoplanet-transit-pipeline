@@ -100,7 +100,7 @@ Executing the modular script catalog returns a highly diverse exoplanetary demog
 | **Kepler-18b** | 1.108 | 0.972 | 3.5047 | ~2.00 | 0.0447 | Compact Multi-Planet Mini-Neptune |
 | **Kepler-20b** | 0.944 | 0.912 | 3.6961 | ~1.85 | 0.0454 | Highly Compressed Close-In Super-Earth |
 | **Kepler-21b** | 1.901 | 1.343 | 2.7858 | ~1.62 | 0.0426 | Bright Delta-Scuti Host Orbiting Planet |
-| **Kepler-22b** | 0.979 | 0.970 | 3.5756 | ~2.38 | 0.0453 | Habitable Zone Liquid-Water Candidate |
+| **Kepler-22b** | 0.979 | 0.970 | 3.5756 | ~2.38 | 0.0453 | Period Aliasing Case (True P=289d) |
 | **Kepler-23b** | 1.520 | 1.110 | 7.1073 | ~1.92 | 0.0751 | Hot Super-Earth Close-In Wrapper |
 | **Kepler-24b** | 1.210 | 0.980 | 8.1452 | ~2.41 | 0.0792 | Intermediate Multi-System Jovian |
 | **Kepler-25b** | 1.342 | 1.192 | 6.2385 | ~2.71 | 0.0682 | Multi-Transit Gravitational Perturbation |
